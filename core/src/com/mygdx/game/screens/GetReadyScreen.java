@@ -29,7 +29,10 @@ public class GetReadyScreen extends BaseScreen{
 
     public GetReadyScreen(MainGame mainGame) {
         super(mainGame);
-        this.world = new World(new Vector2(0,-10), true);
+        //añadimos la gravedad
+        this.world = new World(new Vector2(0, 0), true);
+        /*Permite que el contenido del mundo del juego se ajuste a la pantalla de una manera que se vea bien,
+        sin distorsionar el tamaño o la forma de los elementos del juego.*/
         FitViewport fitViewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT);
         this.stage = new Stage(fitViewport);
 

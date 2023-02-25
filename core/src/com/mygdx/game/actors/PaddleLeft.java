@@ -85,7 +85,7 @@ public class PaddleLeft extends Actor{
             float yDistance = targetY - paddleY;
 
             //Calculamos la velocidad necesaria para mover la pala hacia la posición del toque
-            float maxSpeed = 5f; // Ajusta la velocidad máxima como desees
+            float maxSpeed = 5f; // Ajustamos la velocidad máxima como queramos
             float ySpeed = yDistance / delta; // Velocidad en unidades de Box2D por segundo
             ySpeed = MathUtils.clamp(ySpeed, -maxSpeed, maxSpeed); // Limitamos la velocidad máxima
             body.setLinearVelocity(0f, ySpeed);
