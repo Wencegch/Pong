@@ -1,0 +1,55 @@
+
+PongAtlas.png
+size: 1642, 484
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+barra_azul
+  rotate: false
+  xy: 1606, 133
+  size: 16, 115
+  orig: 16, 115
+  offset: 0, 0
+  index: -1
+barra_morada
+  rotate: false
+  xy: 1606, 367
+  size: 16, 115
+  orig: 16, 115
+  offset: 0, 0
+  index: -1
+barra_roja
+  rotate: false
+  xy: 1606, 250
+  size: 16, 115
+  orig: 16, 115
+  offset: 0, 0
+  index: -1
+barra_verde
+  rotate: false
+  xy: 1624, 367
+  size: 16, 115
+  orig: 16, 115
+  offset: 0, 0
+  index: -1
+bola
+  rotate: false
+  xy: 1606, 102
+  size: 30, 29
+  orig: 30, 29
+  offset: 0, 0
+  index: -1
+fondo_negro
+  rotate: false
+  xy: 2, 2
+  size: 800, 480
+  orig: 800, 480
+  offset: 0, 0
+  index: -1
+pong_background
+  rotate: false
+  xy: 804, 2
+  size: 800, 480
+  orig: 800, 480
+  offset: 0, 0
+  index: -1
