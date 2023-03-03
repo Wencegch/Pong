@@ -28,6 +28,9 @@ public class AssetMan {
     private AssetManager assetManager;
     private TextureAtlas textureAtlas;
 
+    /**
+     * Constructor que se encarga de cargar diferentes tipos de recursos utilizando la clase AssetManager
+     */
     public AssetMan(){
         this.assetManager = new AssetManager();
 
@@ -40,12 +43,22 @@ public class AssetMan {
         this.textureAtlas = assetManager.get(ATLAS_MAP);
     }
 
-    //Imagen de fondo
+    /**
+     * Método que devuelve la Imagen de fondo
+     * @return devuelve la región de textura de la pantalla de juego
+     */
     public TextureRegion getGameBackground(){return this.textureAtlas.findRegion(BACKGROUND_IMAGE);}
 
+    /**
+     * Método que devuelve la Imagen de fondo
+     * @return devuelve la región de textura de la pantalla para la pantalla de inicio o fin
+     */
     public TextureRegion getScreenBackground(){return this.textureAtlas.findRegion(GAME_READY_OVER_BACKGROUND);}
 
-    //Animación pala
+    /**
+     * Devuelve la Animación de la pala
+     * @return animación de la pala izquierda que dura 2 segundos
+     */
     public Animation<TextureRegion> getShovelAnimationLeft(){
         //tiempo que dura un frame(cada uno 1 segundo en este caso)
         return new Animation<TextureRegion>(1f,
@@ -53,30 +66,54 @@ public class AssetMan {
                 textureAtlas.findRegion(SHOVEL_RED));
     }
 
+    /**
+     * Devuelve la Animación de la pala
+     * @return animación de la pala izquierda que dura 2 segundos
+     */
     public Animation<TextureRegion> getShovelAnimationRight(){
         return new Animation<TextureRegion>(1f,
                 textureAtlas.findRegion(SHOVEL_GREEN),
                 textureAtlas.findRegion(SHOVEL_PURPLE));
     }
 
-    //Textura de la pelota
+    /**
+     * Textura de la pelota
+     * @return devuelve la región de textura de la bola
+     */
     public TextureRegion getBall(){
         return this.textureAtlas.findRegion(USER_BALL);
     }
 
     //Sonidos
+
+    /**
+     * Devuelve un objeto de la clase Music
+     * @return nombre de la pista de música que se desea cargar por la constante "MUSIC_BG".
+     */
     public Music getMusicBG(){
         return this.assetManager.get(MUSIC_BG);
     }
 
+    /**
+     * Devuelve un objeto de la clase Sound
+     * @return nombre de la pista de sonido que se desea cargar por la constante "SOUND_HIT".
+     */
     public Sound getHitSound(){
         return this.assetManager.get(SOUND_HIT);
     }
 
+    /**
+     * Devuelve un objeto de la clase Sound
+     * @return nombre de la pista de sonido que se desea cargar por la constante "SOUND_SCORE".
+     */
     public Sound getScoreSound(){
         return this.assetManager.get(SOUND_SCORE);
     }
 
+    /**
+     * Devuelve un objeto de la clase BitmapFont
+     * @return fuente de texto y la imagen correspondiente.
+     */
     public BitmapFont getFont(){
         return new BitmapFont(Gdx.files.internal(FONT_FNT),Gdx.files.internal(FONT_PNG), false);
     }

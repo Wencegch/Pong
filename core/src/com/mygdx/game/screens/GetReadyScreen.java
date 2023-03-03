@@ -27,6 +27,10 @@ public class GetReadyScreen extends BaseScreen{
     private OrthographicCamera fontCamera;
     private BitmapFont texto;
 
+    /**
+     * Constructor de la pantalla en el juego que se muestra cuando el jugador ha iniciado el juego.
+     * @param mainGame controla la lógica del juego y maneja la transición de una pantalla a otra.
+     */
     public GetReadyScreen(MainGame mainGame) {
         super(mainGame);
         //añadimos la gravedad
@@ -40,14 +44,20 @@ public class GetReadyScreen extends BaseScreen{
 
         textoInicio();
     }
-    //Método para añadir el fondo a la pantalla
+
+    /**
+     * Método para añadir el fondo a la pantalla
+     */
     public void addBackground(){
         this.background = new Image(mainGame.assetManager.getScreenBackground());
         this.background.setPosition(0,0);
         this.background.setSize(WORLD_WIDTH, WORLD_HEIGHT);
         this.stage.addActor(this.background);
     }
-    //Creamos una función para establecer la configuración relacionada con el texto de la pantalla de inicio.
+
+    /**
+     * Creamos una función para establecer la configuración relacionada con el texto de la pantalla de inicio.
+     */
     private void textoInicio(){
         //Cargamos la fuente del texto
         this.texto = this.mainGame.assetManager.getFont();
@@ -59,11 +69,18 @@ public class GetReadyScreen extends BaseScreen{
         this.fontCamera.update();
     }
 
+    /**
+     * Método que se llama automáticamente cuando se muestra la pantalla.
+     */
     @Override
     public void show(){
         addBackground();
     }
 
+    /**
+     * Método se llama continuamente en un bucle mientras la pantalla está activa y se encarga de dibujar los elementos de la pantalla en cada cuadro
+     * @param delta tiempo transcurrido, en segundos, desde la última llamada al método
+     */
     @Override
     public void render(float delta){
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -86,6 +103,9 @@ public class GetReadyScreen extends BaseScreen{
         }
     }
 
+    /**
+     * Libera la memoria
+     */
     @Override
     public void dispose() {
         this.stage.dispose();

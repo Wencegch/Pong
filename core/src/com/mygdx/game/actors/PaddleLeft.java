@@ -15,7 +15,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.mygdx.game.extra.Utils;
 
-
 public class PaddleLeft extends Actor{
     private static final float SHOVEL_WIDTH = 0.2f;
     private static final float SHOVEL_HEIGHT = 0.7f;
@@ -29,7 +28,13 @@ public class PaddleLeft extends Actor{
     private Body body;
     private Fixture fixture;
 
-    //Constructor con mundo, textura, posicion y ID
+    /**
+     * Constructor con mundo, textura, posicion y ID
+     * @param world lugar donde va a aparecer
+     * @param shovelAnimation imagen de la pala
+     * @param position posición en la que aparece
+     * @param userData ID de la pala
+     */
     public PaddleLeft(World world, Animation<TextureRegion> shovelAnimation, Vector2 position, String userData) {
         this.shovelAnimation = shovelAnimation;
         this.position = position;
@@ -42,7 +47,10 @@ public class PaddleLeft extends Actor{
 
         this.fixture.setUserData(userData);
     }
-    //Método para crear la pala donde indicamos la forma de su body
+
+    /**
+     * Método para crear la pala donde indicamos la forma de su body
+     */
     public void createBody(){
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(this.position);
@@ -51,7 +59,9 @@ public class PaddleLeft extends Actor{
         this.body = this.world.createBody(bodyDef);
     }
 
-    //Creamos método para la fixture
+    /**
+     * Creamos método para la fixture
+     */
     public void createFixture(){
         PolygonShape shape = new PolygonShape();
 
@@ -63,6 +73,10 @@ public class PaddleLeft extends Actor{
         shape.dispose();
     }
 
+    /**
+     * Representa un objeto en la pantalla del juego que se puede dibujar y animar
+     * @param delta tiempo transcurrido en segundos desde el último cuadro del juego
+     */
     @Override
     public void act(float delta) {
         //Evitamos que la física de la pala se mueva en el eje angular
@@ -95,6 +109,11 @@ public class PaddleLeft extends Actor{
         }
     }
 
+    /**
+     * Método que representa un objeto en la pantalla del juego que se puede dibujar y animar
+     * @param batch se encarga de dibujar todos los objetos en la pantalla
+     * @param parentAlpha indica la transparencia del objeto
+     */
     public void draw(Batch batch, float parentAlpha){
         //Colocamos el sprite
         setPosition(body.getPosition().x - 0.4f, body.getPosition().y - 1f);
@@ -104,7 +123,9 @@ public class PaddleLeft extends Actor{
         stateTime += Gdx.graphics.getDeltaTime();
     }
 
-    //Liberamos recursos
+    /**
+     * //Liberamos recursos
+     */
     public void detach(){
         this.body.destroyFixture(this.fixture);
         this.world.destroyBody(this.body);

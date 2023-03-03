@@ -24,7 +24,12 @@ public class Ball extends Actor {
     private Body body;
     private Fixture fixture;
 
-    //Constructor con mundo, textura y posicion
+    /**
+     * Constructor con mundo, textura y posicion
+     * @param world lugar donde va a aparecer
+     * @param ballTexture imagen de la pelota
+     * @param position posición en la que aparece
+     */
     public Ball(World world, TextureRegion ballTexture, Vector2 position) {
         this.world = world;
         this.ballTexture = ballTexture;
@@ -32,7 +37,11 @@ public class Ball extends Actor {
         createBody(position);
         createFixture();
     }
-    //Método para crear la pelota donde indicamos la forma de su body, su ID, y su velocidad inicial
+
+    /**
+     * Método para crear la pelota donde indicamos la forma de su body, su ID, y su velocidad inicial
+     * @param position posición en el que aparece
+     */
     private void createBody(Vector2 position){
         BodyDef def = new BodyDef();
         def.position.set(position);
@@ -44,7 +53,10 @@ public class Ball extends Actor {
         body.setLinearVelocity(BALL_SPEED,0);
     }
 
-    //Creamos método para la fixture
+
+    /**
+     * Método para crear la fixture de la bola
+     */
     private void createFixture(){
         CircleShape circular = new CircleShape();
         circular.setRadius(BALL_RAIDUS);
@@ -55,20 +67,32 @@ public class Ball extends Actor {
         fixture.setUserData(Utils.USER_BALL);
     }
 
+    /**
+     * Método que representa un objeto en la pantalla del juego que se puede dibujar y animar
+     * @param batch se encarga de dibujar todos los objetos en la pantalla
+     * @param parentAlpha indica la transparencia del objeto
+     */
     @Override
     public void draw(Batch batch, float parentAlpha){
         //damos la posición de la bola
         setPosition(this.body.getPosition().x - (BALL_WIDTH / 2), this.body.getPosition().y - (BALL_HEIGHT / 2));
         batch.draw(this.ballTexture, getX(), getY(), BALL_WIDTH, BALL_HEIGHT);
     }
-    //Liberamos recursos
+
+    /**
+     * Liberamos recursos
+     */
     public void detach(){
         if(!world.isLocked()){
             this.body.destroyFixture(fixture);
             this.world.destroyBody(body);
         }
     }
-    //Función que sirve para aplicar la dirección a la pelota dependiendo en donde haya colisionado
+
+    /**
+     * Función que sirve para aplicar la dirección a la pelota dependiendo en donde haya colisionado
+     * @param n fuerza que le tiene que aplicar a la pelota
+     */
     public void aplicarImpulso(int n){
         Vector2 vc = null;
         switch(n){
@@ -107,7 +131,10 @@ public class Ball extends Actor {
         }
         this.body.setLinearVelocity(vc);
     }
-    //Para la bola
+
+    /**
+     * Método que para la bola
+     */
     public void stopBall(){
         this.body.setLinearVelocity(0,0);
         this.body.setAngularVelocity(0);

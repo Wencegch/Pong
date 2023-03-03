@@ -77,6 +77,10 @@ public class GameScreen extends BaseScreen implements ContactListener{
     private BitmapFont scoreLeft;
     private BitmapFont scoreRight;
 
+    /**
+     * Constructor de la pantalla en el juego que se muestra cuando está jugando.
+     * @param mainGame controla la lógica del juego y maneja la transición de una pantalla a otra.
+     */
     public GameScreen(MainGame mainGame) {
         super(mainGame);
         //añadimos la gravedad
@@ -104,28 +108,39 @@ public class GameScreen extends BaseScreen implements ContactListener{
         }, WAIT_TIME);
     }
 
-    //Método para añadir el fondo de la pantalla del juego
+    /**
+     * Método para añadir el fondo de la pantalla del juego
+     */
     public void addBackground(){
         this.background = new Image(mainGame.assetManager.getGameBackground());
         this.background.setPosition(0,0);
         this.background.setSize(WORLD_WIDTH, WORLD_HEIGHT);
         this.stage.addActor(this.background);
     }
-    //Método para añadir la pala izquierda y su ID
+
+    /**
+     * Método para añadir la pala izquierda y su ID
+     */
     public void addShovelLeft(){
         Animation<TextureRegion> shovelSprite = mainGame.assetManager.getShovelAnimationLeft();
         //damos el mundo, los sprites que va a utilizar y la posición en el mundo con los vectores
         this.paddleLeft = new PaddleLeft(this.world, shovelSprite, new Vector2(0.5f, 2.3f), USER_SHOVEL_LEFT);
         this.stage.addActor(this.paddleLeft);
     }
-    //Método para añadir la pala derecha y su ID
+
+    /**
+     * Método para añadir la pala derecha y su ID
+     */
     public void addShovelRight(){
         Animation<TextureRegion> shovelSprite = mainGame.assetManager.getShovelAnimationRight();
         //damos el mundo, los sprites que va a utilizar y la posición en el mundo con los vectores
         this.paddleRight = new PaddleRight(this.world, shovelSprite, new Vector2(7.6f, 2.3f), USER_SHOVEL_RIGHT);
         this.stage.addActor(this.paddleRight);
     }
-    //Método para añadir el suelo donde indicamos su posición, la forma de su body y su ID
+
+    /**
+     * Método para añadir el suelo donde indicamos su posición, la forma de su body y su ID
+     */
     private void addFloor() {
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(WORLD_WIDTH / 2f, 0.2f);
@@ -138,7 +153,10 @@ public class GameScreen extends BaseScreen implements ContactListener{
         floor.setUserData(USER_FLOOR);
         edge.dispose();
     }
-    //Método para añadir el techo donde indicamos su posición, la forma de su body y su ID
+
+    /**
+     * Método para añadir el techo donde indicamos su posición, la forma de su body y su ID
+     */
     public void addRoof(){
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(WORLD_WIDTH/ 2f, WORLD_HEIGHT);
@@ -151,7 +169,10 @@ public class GameScreen extends BaseScreen implements ContactListener{
         roof.setUserData(USER_ROOF);
         edge.dispose();
     }
-    //Método para añadir la pared izquierda donde indicamos su posición, la forma de su body y su ID
+
+    /**
+     * Método para añadir la pared izquierda donde indicamos su posición, la forma de su body y su ID
+     */
     private void addLeftWall(){
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
@@ -163,7 +184,10 @@ public class GameScreen extends BaseScreen implements ContactListener{
         leftWall.setUserData(USER_LEFT_WALL);
         edge.dispose();
     }
-    //Método para añadir la pared derecha donde indicamos su posición, la forma de su body y su ID
+
+    /**
+     * Método para añadir la pared derecha donde indicamos su posición, la forma de su body y su ID
+     */
     private void addRighttWall(){
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
@@ -176,7 +200,9 @@ public class GameScreen extends BaseScreen implements ContactListener{
         edge.dispose();
     }
 
-    //Método para añadir la pelota donde indicamos su posición
+    /**
+     * Método para añadir la pelota donde indicamos su posición
+     */
     private void addBall(){
         isScored = false;
         TextureRegion ball = mainGame.assetManager.getBall();
@@ -184,8 +210,12 @@ public class GameScreen extends BaseScreen implements ContactListener{
         this.ball = new Ball(this.world, ball, new Vector2(4f,2.4f));
         this.stage.addActor(this.ball);
     }
-    /*Método para añadir la pelota donde indicamos su posición y con un parámetro que dependiendo de quien
-    * le metan punto le aparecerá la pelota hacia él */
+
+    /**
+     * Método para añadir la pelota donde indicamos su posición y con un parámetro que dependiendo de quien
+     * le metan punto le aparecerá la pelota hacia él
+     * @param x posición de la pelota en el eje X
+     */
     private void addBall(int x){
         isScored = false;
         TextureRegion ball = mainGame.assetManager.getBall();
@@ -196,14 +226,18 @@ public class GameScreen extends BaseScreen implements ContactListener{
         this.ball.aplicarImpulso(x);
     }
 
-    //Creamos una función para establecer la configuración relacionada con la Música y el Sonido
+    /**
+     * Creamos una función para establecer la configuración relacionada con la Música y el Sonido
+     */
     private void prepareGameSound(){
         this.musicbg = this.mainGame.assetManager.getMusicBG();
         this.hitSound = this.mainGame.assetManager.getHitSound();
         this.scoreSound = this.mainGame.assetManager.getScoreSound();
     }
 
-    //Creamos una función para establecer la configuración relacionada con el texto de la puntuación.
+    /**
+     * Creamos una función para establecer la configuración relacionada con el texto de la puntuación.
+     */
     private void prepareScore(){
         //Cargamos la fuente del contador de la izquierda
         this.scoreLeft = this.mainGame.assetManager.getFont();
@@ -224,6 +258,10 @@ public class GameScreen extends BaseScreen implements ContactListener{
         this.fontCameraRight.update();
     }
 
+    /**
+     * Método se llama continuamente en un bucle mientras la pantalla está activa y se encarga de dibujar los elementos de la pantalla en cada cuadro
+     * @param delta tiempo transcurrido, en segundos, desde la última llamada al método
+     */
     @Override
     public void render(float delta){
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -290,6 +328,10 @@ public class GameScreen extends BaseScreen implements ContactListener{
 
     }
     //Agregamos los elementos a la pantalla
+
+    /**
+     * Método que se llama automáticamente cuando se muestra la pantalla.
+     */
     @Override
     public void show(){
         addBackground();
@@ -303,7 +345,10 @@ public class GameScreen extends BaseScreen implements ContactListener{
         this.musicbg.setLooping(true);
         this.musicbg.play();
     }
-    //Liberar recursos y eliminar instancias
+
+    /**
+     * Liberar recursos y eliminar instancias
+     */
     @Override
     public void hide(){
         this.paddleLeft.detach();
@@ -320,7 +365,10 @@ public class GameScreen extends BaseScreen implements ContactListener{
         this.musicbg.stop();
         this.stage.dispose();
     }
-    //Libera la memoria
+
+    /**
+     * Libera la memoria
+     */
     @Override
     public void dispose(){
         this.stage.dispose();
@@ -328,13 +376,22 @@ public class GameScreen extends BaseScreen implements ContactListener{
     }
 
     /**COLISIONES*/
-    //Función que nos ayuda a determinar qué objetos han colisionado.
+    /**
+     * Función que nos ayuda a determinar qué objetos han colisionado.
+     * @param contact representa la colsión entre dos fixtures
+     * @param objA objeto que ha colisionado
+     * @param objB objeto que ha colisionado
+     * @return
+     */
     private boolean areColider(Contact contact, Object objA, Object objB) {
         return (contact.getFixtureA().getUserData().equals(objA) && contact.getFixtureB().getUserData().equals(objB)) ||
                 (contact.getFixtureA().getUserData().equals(objB) && contact.getFixtureB().getUserData().equals(objA));
     }
 
-    //Se crea un método que se llamará cada vez que se produzca algún contacto entre objetos.
+    /**
+     * Se crea un método que se llamará cada vez que se produzca algún contacto entre objetos.
+     * @param contact representa la colsión entre dos fixtures
+     */
     @Override
     public void beginContact(Contact contact) {
         //comprueba si la pelota ha colisionado con la pala de la izquierda

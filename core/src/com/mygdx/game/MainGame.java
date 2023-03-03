@@ -14,6 +14,10 @@ public class MainGame extends Game {
 	private GetReadyScreen getReadyScreen;
 	public AssetMan assetManager;
 
+	/**
+	 * Método de ciclo de vida que se llama automáticamente cuando se inicia la aplicación, y configura
+	 * la primera pantalla que se mostrará al usuario
+	 */
 	@Override
 	public void create () {
 		this.assetManager = new AssetMan();
